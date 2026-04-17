@@ -1,0 +1,8 @@
+<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+  <!-- Spine -->
+  <rect x="0" y="0" width="54" height="210"/>
+  <!-- Upper arm: steep diagonal bottom edge (empinada hacia abajo-izquierda) -->
+  <polygon points="54,0 200,0 200,45 54,98"/>
+  <!-- Lower arm: gentle top edge, gap widens to the right -->
+  <polygon points="54,118 200,100 200,210 54,210"/>
+</svg>

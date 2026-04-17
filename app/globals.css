@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --kobra-green: #00e676;
+  --kobra-green-dim: rgba(0, 230, 118, 0.15);
+  --kobra-green-glow: rgba(0, 230, 118, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #030303;
+  color: white;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.055) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030303;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00e676;
+}
+
+/* Green text gradient */
+.text-gradient-green {
+  background: linear-gradient(135deg, #00e676 0%, #69f0ae 50%, #00e676 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Glow utilities */
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.3), 0 0 40px rgba(0, 230, 118, 0.1);
+}
+.glow-green-sm {
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.2);
+}
+.text-glow-green {
+  text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+}
+
+/* Card hover glow */
+.card-hover {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+.card-hover:hover {
+  border-color: rgba(0, 230, 118, 0.3) !important;
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.08),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Glass nav */
+.glass-nav {
+  background: rgba(3, 3, 3, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(0, 230, 118, 0.2);
+  color: #00e676;
+}
