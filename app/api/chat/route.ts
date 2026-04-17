@@ -1,6 +1,26 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
+// Rate limiting simple en memoria — máx 20 requests por IP cada 10 minutos
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 20;
+const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutos
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+
+  if (entry.count >= RATE_LIMIT) return true;
+
+  entry.count++;
+  return false;
+}
+
 const SYSTEM_PROMPT = `Eres Kai, el asistente virtual de Kobra AI, una agencia de inteligencia artificial que ayuda a negocios locales a no perder clientes y a automatizar tareas repetitivas para que el equipo se centre en lo que importa.
 
 IDIOMA: Responde siempre en el idioma en que te escriban. Si es español, tutea siempre. Si es inglés, usa un tono cercano e informal.
@@ -86,7 +106,38 @@ function getFallbackResponse(userMessage: string, lang: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting por IP
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+      request.headers.get("x-real-ip") ??
+      "unknown";
+
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { message: "Demasiadas preguntas seguidas. Espera unos minutos y vuelve a intentarlo 😊" },
+        { status: 429 }
+      );
+    }
+
     const { messages, lang = "es" } = await request.json();
+
+    // Validar que messages existe y tiene formato correcto
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ message: getFallbackResponse("hola", "es") });
+    }
+
+    // Limitar historial a los últimos 10 mensajes para evitar abusos
+    const limitedMessages = messages.slice(-10);
+
+    // Validar longitud máxima de cada mensaje (500 caracteres)
+    for (const msg of limitedMessages) {
+      if (typeof msg.content === "string" && msg.content.length > 500) {
+        return NextResponse.json(
+          { message: "Tu mensaje es demasiado largo. Intenta resumirlo un poco 😊" },
+          { status: 400 }
+        );
+      }
+    }
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
 
@@ -102,11 +153,11 @@ export async function POST(request: NextRequest) {
 
     // Anthropic requires messages to start with "user" role.
     // Strip any leading assistant messages (e.g. the UI greeting).
-    const firstUserIdx = messages.findIndex(
+    const firstUserIdx = limitedMessages.findIndex(
       (m: { role: string }) => m.role === "user"
     );
     const cleanMessages =
-      firstUserIdx >= 0 ? messages.slice(firstUserIdx) : messages;
+      firstUserIdx >= 0 ? limitedMessages.slice(firstUserIdx) : limitedMessages;
 
     if (cleanMessages.length === 0) {
       return NextResponse.json({
