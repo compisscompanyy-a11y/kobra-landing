@@ -1,41 +1,43 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-// Dominios permitidos para llamar a esta API
+// Dominios permitidos — el origin puede ser null en peticiones same-site (browser navigation)
+// Solo bloqueamos orígenes que sí vienen pero no están en la lista
 const ALLOWED_ORIGINS = [
-  "https://kobra-landing-page.vercel.app",
   "https://kobra.ai",
   "http://localhost:3000",
 ];
 
 function isAllowedOrigin(origin: string | null): boolean {
-  if (!origin) return false;
-  // Permite cualquier subdominio de vercel.app del proyecto
+  // Sin origin = petición same-site o server-side → permitir
+  if (!origin) return true;
+  // Cualquier subdominio de vercel.app (previews, producción)
   if (origin.endsWith(".vercel.app")) return true;
   return ALLOWED_ORIGINS.includes(origin);
 }
 
-// Rate limiting por cabecera Retry-After — funciona en serverless
-// Máx 20 requests por IP cada 10 minutos usando Map en memoria (best-effort)
+// Rate limiting best-effort en memoria — máx 20 req por IP cada 10 min
+// En serverless el Map puede resetearse entre instancias, pero es suficiente
+// para frenar abusos masivos desde una misma IP en la misma instancia
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 20;
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 
-function isRateLimited(ip: string): { limited: boolean; retryAfter: number } {
+function checkRateLimit(ip: string): { limited: boolean; retryAfter: number; remaining: number } {
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
 
   if (!entry || now > entry.resetAt) {
     rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return { limited: false, retryAfter: 0 };
+    return { limited: false, retryAfter: 0, remaining: RATE_LIMIT - 1 };
   }
 
   if (entry.count >= RATE_LIMIT) {
-    return { limited: true, retryAfter: Math.ceil((entry.resetAt - now) / 1000) };
+    return { limited: true, retryAfter: Math.ceil((entry.resetAt - now) / 1000), remaining: 0 };
   }
 
   entry.count++;
-  return { limited: false, retryAfter: 0 };
+  return { limited: false, retryAfter: 0, remaining: RATE_LIMIT - entry.count };
 }
 
 const SYSTEM_PROMPT = `Eres Kai, el asistente virtual de Kobra AI, una agencia de inteligencia artificial que ayuda a negocios locales a no perder clientes y a automatizar tareas repetitivas para que el equipo se centre en lo que importa.
@@ -138,11 +140,19 @@ export async function POST(request: NextRequest) {
       request.headers.get("x-real-ip") ??
       "unknown";
 
-    const { limited, retryAfter } = isRateLimited(ip);
+    const { limited, retryAfter, remaining } = checkRateLimit(ip);
     if (limited) {
       return NextResponse.json(
         { message: "Demasiadas preguntas seguidas. Espera unos minutos y vuelve a intentarlo 😊" },
-        { status: 429, headers: { "Retry-After": String(retryAfter) } }
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(retryAfter),
+            "X-RateLimit-Limit": String(RATE_LIMIT),
+            "X-RateLimit-Remaining": "0",
+            "X-RateLimit-Reset": String(Math.ceil((Date.now() + retryAfter * 1000) / 1000)),
+          },
+        }
       );
     }
 
@@ -203,7 +213,15 @@ export async function POST(request: NextRequest) {
     const content = response.content[0];
     if (content.type !== "text") throw new Error("Unexpected response type");
 
-    return NextResponse.json({ message: content.text });
+    return NextResponse.json(
+      { message: content.text },
+      {
+        headers: {
+          "X-RateLimit-Limit": String(RATE_LIMIT),
+          "X-RateLimit-Remaining": String(remaining),
+        },
+      }
+    );
   } catch (error) {
     console.error("Chat API error:", error);
     // Return a helpful fallback instead of raw error
