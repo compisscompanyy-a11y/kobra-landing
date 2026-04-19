@@ -66,9 +66,9 @@ export default function Navbar() {
           onClick={handleInicio}
           className="flex items-center gap-2.5 group flex-shrink-0"
         >
-          <div className="w-8 h-8 relative">
+          <div className="w-9 h-9 relative">
             <Image
-              src="/kobra-logo-new.png"
+              src="/kobra-k-logo.png"
               alt="Kobra AI — Chatbot para empresas y automatización con IA en Madrid"
               fill
               className="object-contain group-hover:opacity-80 transition-opacity"

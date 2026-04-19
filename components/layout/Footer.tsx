@@ -25,9 +25,9 @@ export default function Footer() {
             className="md:col-span-5 flex flex-col gap-4"
           >
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 relative">
+              <div className="w-9 h-9 relative">
                 <Image
-                  src="/kobra-logo-new.png"
+                  src="/kobra-k-logo.png"
                   alt="Kobra AI — Automatización con inteligencia artificial"
                   fill
                   className="object-contain"
