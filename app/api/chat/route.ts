@@ -1,24 +1,41 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
-// Rate limiting simple en memoria — máx 20 requests por IP cada 10 minutos
+// Dominios permitidos para llamar a esta API
+const ALLOWED_ORIGINS = [
+  "https://kobra-landing-page.vercel.app",
+  "https://kobra.ai",
+  "http://localhost:3000",
+];
+
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return false;
+  // Permite cualquier subdominio de vercel.app del proyecto
+  if (origin.endsWith(".vercel.app")) return true;
+  return ALLOWED_ORIGINS.includes(origin);
+}
+
+// Rate limiting por cabecera Retry-After — funciona en serverless
+// Máx 20 requests por IP cada 10 minutos usando Map en memoria (best-effort)
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 20;
-const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutos
+const RATE_WINDOW_MS = 10 * 60 * 1000;
 
-function isRateLimited(ip: string): boolean {
+function isRateLimited(ip: string): { limited: boolean; retryAfter: number } {
   const now = Date.now();
   const entry = rateLimitMap.get(ip);
 
   if (!entry || now > entry.resetAt) {
     rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
+    return { limited: false, retryAfter: 0 };
   }
 
-  if (entry.count >= RATE_LIMIT) return true;
+  if (entry.count >= RATE_LIMIT) {
+    return { limited: true, retryAfter: Math.ceil((entry.resetAt - now) / 1000) };
+  }
 
   entry.count++;
-  return false;
+  return { limited: false, retryAfter: 0 };
 }
 
 const SYSTEM_PROMPT = `Eres Kai, el asistente virtual de Kobra AI, una agencia de inteligencia artificial que ayuda a negocios locales a no perder clientes y a automatizar tareas repetitivas para que el equipo se centre en lo que importa.
@@ -106,16 +123,26 @@ function getFallbackResponse(userMessage: string, lang: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Validación de origen — solo permite llamadas desde el dominio propio
+    const origin = request.headers.get("origin");
+    if (!isAllowedOrigin(origin)) {
+      return NextResponse.json(
+        { message: "Acceso no permitido." },
+        { status: 403 }
+      );
+    }
+
     // Rate limiting por IP
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       request.headers.get("x-real-ip") ??
       "unknown";
 
-    if (isRateLimited(ip)) {
+    const { limited, retryAfter } = isRateLimited(ip);
+    if (limited) {
       return NextResponse.json(
         { message: "Demasiadas preguntas seguidas. Espera unos minutos y vuelve a intentarlo 😊" },
-        { status: 429 }
+        { status: 429, headers: { "Retry-After": String(retryAfter) } }
       );
     }
 
