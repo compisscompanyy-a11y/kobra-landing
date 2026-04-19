@@ -6,7 +6,7 @@ import { CheckCircle2, Calendar, MessageCircle } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import CalendlyButton from "@/components/ui/CalendlyButton";
 
-const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34XXXXXXXXX";
+const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34640802262";
 
 export default function CTA() {
   const { t, lang } = useLang();
@@ -114,21 +114,21 @@ export default function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.35 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
         >
+          <CalendlyButton className="group w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#00E676] text-[#030303] font-bold text-base hover:bg-[#69f0ae] transition-all duration-200 glow-green hover:scale-[1.02] shadow-lg shadow-[#00E676]/20">
+            <Calendar size={18} />
+            {c.btnCalendly}
+          </CalendlyButton>
           <a
             href={`https://wa.me/${WA_NUMBER}?text=${waMsg}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-2.5 px-8 py-4 rounded-xl bg-[#25D366] text-white font-semibold text-base hover:bg-[#22c55e] transition-all duration-200 shadow-lg shadow-[#25D366]/15 hover:scale-[1.02]"
+            className="group w-full sm:w-auto flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-[#25D366] text-white font-semibold text-base hover:bg-[#22c55e] transition-all duration-200 shadow-lg shadow-[#25D366]/15 hover:scale-[1.02]"
           >
             <MessageCircle size={18} />
             {c.btnWhatsApp}
           </a>
-          <CalendlyButton className="group flex items-center gap-2.5 px-8 py-4 rounded-xl bg-[#00E676] text-[#030303] font-semibold text-base hover:bg-[#69f0ae] transition-all duration-200 glow-green hover:scale-[1.02]">
-            <Calendar size={18} />
-            {c.btnCalendly}
-          </CalendlyButton>
         </motion.div>
 
         <motion.p

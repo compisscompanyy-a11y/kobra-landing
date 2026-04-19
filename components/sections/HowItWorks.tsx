@@ -20,7 +20,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.55 }}
           className="text-center mb-20"
         >
-          <p className="text-xs font-medium uppercase tracking-widest text-[#555] mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#00E676]/70 mb-4">
             {h.label}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white">{h.headline}</h2>

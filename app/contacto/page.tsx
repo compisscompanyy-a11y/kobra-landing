@@ -2,12 +2,29 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
+import MobileCTABar from "@/components/ui/MobileCTABar";
 import ContactForm from "@/components/ui/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contacto — Kobra AI",
+  title: "Contacto — Pide tu Demo de Chatbot IA o Agente de Voz",
   description:
-    "Pide tu demo gratuita o presupuesto personalizado. Respondemos en menos de 24 horas.",
+    "Contacta con Kobra AI en Madrid para pedir tu demo gratuita de chatbot para empresas, automatización con IA o agente de voz. Respondemos en menos de 24 horas.",
+  keywords: [
+    "contacto chatbot empresas",
+    "demo automatización IA",
+    "presupuesto chatbot WhatsApp",
+    "empresa automatización Madrid contacto",
+  ],
+  alternates: {
+    canonical: "https://kobra.ai/contacto",
+  },
+  openGraph: {
+    title: "Contacta con Kobra AI — Demo Gratuita de Automatización con IA",
+    description:
+      "Pide tu demo gratuita de chatbot para empresas, agente de voz IA o automatización de procesos. Empresa en Madrid.",
+    url: "https://kobra.ai/contacto",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Contacto Kobra AI" }],
+  },
 };
 
 export default function ContactoPage() {
@@ -41,7 +58,7 @@ export default function ContactoPage() {
             <div className="lg:col-span-2 flex flex-col gap-6">
               {/* WhatsApp card */}
               <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34XXXXXXXXX"}?text=Hola%2C%20me%20interesa%20una%20demo%20de%20Kobra%20AI`}
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34640802262"}?text=Hola%2C%20me%20interesa%20una%20demo%20de%20Kobra%20AI`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-start gap-4 p-6 rounded-2xl border border-white/5 bg-[#0d0d0d] hover:border-[#00E676]/30 transition-all duration-300"
@@ -121,6 +138,7 @@ export default function ContactoPage() {
 
       <Footer />
       <FloatingWhatsApp />
+      <MobileCTABar />
     </main>
   );
 }

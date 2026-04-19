@@ -18,7 +18,7 @@ export default function Sectors() {
           transition={{ duration: 0.55 }}
           className="text-center mb-14"
         >
-          <p className="text-xs font-medium uppercase tracking-widest text-[#555] mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#00E676]/70 mb-4">
             {s.label}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -58,7 +58,7 @@ export default function Sectors() {
               {/* CTA link */}
               <a
                 href="/contacto"
-                className="mt-auto text-xs text-[#444] group-hover:text-[#00E676] transition-colors font-medium"
+                className="mt-auto text-xs text-[#555] group-hover:text-[#00E676] transition-colors font-medium"
               >
                 Ver cómo funciona →
               </a>

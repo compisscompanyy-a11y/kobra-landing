@@ -69,7 +69,7 @@ export default function Navbar() {
           <div className="w-8 h-8 relative">
             <Image
               src="/kobra-logo-new.png"
-              alt="Kobra Logo"
+              alt="Kobra AI — Chatbot para empresas y automatización con IA en Madrid"
               fill
               className="object-contain group-hover:opacity-80 transition-opacity"
               priority

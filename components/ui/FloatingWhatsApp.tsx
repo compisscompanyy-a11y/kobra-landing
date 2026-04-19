@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34XXXXXXXXX";
+const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34640802262";
 const WA_MSG = "Hola%2C%20me%20interesa%20una%20demo%20gratuita%20de%20Kobra%20AI";
 
 export default function FloatingWhatsApp() {

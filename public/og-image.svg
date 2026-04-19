@@ -1,0 +1,80 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#030303"/>
+
+  <!-- Dot grid pattern -->
+  <pattern id="dots" x="0" y="0" width="28" height="28" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.055)"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+
+  <!-- Green radial glow -->
+  <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#00E676" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#00E676" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Logo mark - snake/kobra shape -->
+  <g transform="translate(100, 100)">
+    <rect width="64" height="64" rx="16" fill="#00E676" fill-opacity="0.12"/>
+    <rect x="1" y="1" width="62" height="62" rx="15" stroke="#00E676" stroke-opacity="0.3" stroke-width="1.5" fill="none"/>
+    <!-- K letter -->
+    <text x="18" y="46" font-family="system-ui, sans-serif" font-weight="800" font-size="40" fill="#00E676">K</text>
+  </g>
+
+  <!-- Brand name -->
+  <text x="186" y="155" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="48" fill="white" letter-spacing="-1">KOBRA</text>
+  <text x="322" y="155" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="48" fill="#00E676">.</text>
+  <text x="338" y="155" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="28" fill="#555555">AI</text>
+
+  <!-- Main headline -->
+  <text x="100" y="280" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="72" fill="white" letter-spacing="-2">Automatización</text>
+  <text x="100" y="368" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="72" fill="#00E676" letter-spacing="-2">con IA</text>
+  <text x="476" y="368" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="72" fill="white" letter-spacing="-2"> para empresas</text>
+
+  <!-- Sub -->
+  <text x="100" y="440" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="28" fill="#888888">Chatbot · Agente de Voz · WhatsApp · Madrid, España</text>
+
+  <!-- Green separator line -->
+  <rect x="100" y="480" width="80" height="3" rx="2" fill="#00E676"/>
+
+  <!-- URL -->
+  <text x="100" y="540" font-family="system-ui, -apple-system, sans-serif" font-weight="500" font-size="24" fill="#444444">kobra.ai</text>
+
+  <!-- Right side visual - floating cards -->
+  <g transform="translate(740, 180)">
+    <!-- Card 1 -->
+    <rect width="360" height="100" rx="16" fill="#0d0d0d" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <rect x="20" y="20" width="40" height="40" rx="10" fill="#00E676" fill-opacity="0.12" stroke="#00E676" stroke-opacity="0.2" stroke-width="1"/>
+    <text x="33" y="47" font-family="system-ui" font-size="22" fill="#00E676">💬</text>
+    <text x="74" y="40" font-family="system-ui, sans-serif" font-weight="600" font-size="16" fill="white">Chatbot para empresas</text>
+    <text x="74" y="62" font-family="system-ui, sans-serif" font-weight="400" font-size="13" fill="#555555">Respuestas automáticas 24/7</text>
+    <circle cx="325" cy="50" r="6" fill="#00E676"/>
+
+    <!-- Card 2 -->
+    <g transform="translate(0, 116)">
+      <rect width="360" height="100" rx="16" fill="#0d0d0d" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <rect x="20" y="20" width="40" height="40" rx="10" fill="#00E676" fill-opacity="0.12" stroke="#00E676" stroke-opacity="0.2" stroke-width="1"/>
+      <text x="33" y="47" font-family="system-ui" font-size="22" fill="#00E676">📞</text>
+      <text x="74" y="40" font-family="system-ui, sans-serif" font-weight="600" font-size="16" fill="white">Agente de voz IA</text>
+      <text x="74" y="62" font-family="system-ui, sans-serif" font-weight="400" font-size="13" fill="#555555">Llamadas automatizadas con voz natural</text>
+      <circle cx="325" cy="50" r="6" fill="#00E676"/>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(0, 232)">
+      <rect width="360" height="100" rx="16" fill="#0d0d0d" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <rect x="20" y="20" width="40" height="40" rx="10" fill="#25D366" fill-opacity="0.12" stroke="#25D366" stroke-opacity="0.2" stroke-width="1"/>
+      <text x="33" y="47" font-family="system-ui" font-size="22" fill="#25D366">✓</text>
+      <text x="74" y="40" font-family="system-ui, sans-serif" font-weight="600" font-size="16" fill="white">WhatsApp Business API</text>
+      <text x="74" y="62" font-family="system-ui, sans-serif" font-weight="400" font-size="13" fill="#555555">Integración oficial · Sin bloqueos</text>
+      <circle cx="325" cy="50" r="6" fill="#25D366"/>
+    </g>
+  </g>
+
+  <!-- Bottom badge -->
+  <rect x="100" y="568" width="220" height="36" rx="18" fill="#00E676" fill-opacity="0.08" stroke="#00E676" stroke-opacity="0.2" stroke-width="1"/>
+  <text x="151" y="591" font-family="system-ui, sans-serif" font-weight="600" font-size="14" fill="#00E676" letter-spacing="1">Setup en 1 semana</text>
+  <circle cx="126" cy="586" r="5" fill="#00E676"/>
+</svg>

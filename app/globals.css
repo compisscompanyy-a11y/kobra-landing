@@ -107,3 +107,72 @@ body {
   background-color: rgba(0, 230, 118, 0.2);
   color: #00e676;
 }
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Improved focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid rgba(0, 230, 118, 0.6);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Section label accent line */
+.section-label::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 2px;
+  background: #00e676;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-radius: 1px;
+}
+
+/* Improved text contrast for readability */
+.text-readable {
+  color: #cccccc;
+}
+
+/* Mobile bottom padding for CTA bar */
+@media (max-width: 768px) {
+  .has-mobile-cta {
+    padding-bottom: 80px;
+  }
+}
+
+/* Fade-up entrance for sections */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Better backdrop blur for modals */
+.backdrop-kobra {
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+/* Green border glow on hover */
+.hover-glow-border {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-glow-border:hover {
+  border-color: rgba(0, 230, 118, 0.3);
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.05);
+}

@@ -23,7 +23,7 @@ export default function Problem() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center text-xs font-medium uppercase tracking-widest text-[#555] mb-6"
+          className="text-center text-xs font-medium uppercase tracking-widest text-[#00E676]/70 mb-6"
         >
           {p.label}
         </motion.p>

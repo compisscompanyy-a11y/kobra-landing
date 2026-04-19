@@ -22,7 +22,7 @@ export default function Products() {
           transition={{ duration: 0.55 }}
           className="text-center mb-16"
         >
-          <p className="text-xs font-medium uppercase tracking-widest text-[#555] mb-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-[#00E676]/70 mb-4">
             {p.label}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
