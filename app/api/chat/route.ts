@@ -1,6 +1,18 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 
+// Dominios permitidos para llamar a esta API
+const ALLOWED_ORIGINS = [
+  "https://kobra-automation.com",
+  "https://www.kobra-automation.com",
+  "http://localhost:3000",
+];
+
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return true; // same-site requests no envían origin → permitir
+  if (origin.endsWith(".vercel.app")) return true; // previews de Vercel
+  return ALLOWED_ORIGINS.includes(origin);
+}
 
 // Rate limiting best-effort en memoria — máx 20 req por IP cada 10 min
 // En serverless el Map puede resetearse entre instancias, pero es suficiente
@@ -111,6 +123,12 @@ function getFallbackResponse(userMessage: string, lang: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    // Validación de origen
+    const origin = request.headers.get("origin");
+    if (!isAllowedOrigin(origin)) {
+      return NextResponse.json({ message: "Acceso no permitido." }, { status: 403 });
+    }
+
     // Rate limiting por IP
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
