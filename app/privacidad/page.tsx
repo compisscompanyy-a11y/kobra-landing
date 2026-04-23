@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Política de Privacidad — Kobra AI",
   description: "Política de privacidad y protección de datos de Kobra AI. Información sobre el tratamiento de tus datos personales.",
   alternates: {
-    canonical: "https://kobra.ai/privacidad",
+    canonical: "https://kobra-automation.com/privacidad",
   },
   robots: { index: false },
 };
