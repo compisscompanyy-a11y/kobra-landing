@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const SITE_URL = "https://kobra.ai";
+const SITE_URL = "https://www.kobra-automation.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {

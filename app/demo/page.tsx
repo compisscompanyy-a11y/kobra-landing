@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     "chatbot WhatsApp demo gratis",
   ],
   alternates: {
-    canonical: "https://kobra.ai/demo",
+    canonical: "https://www.kobra-automation.com/demo",
   },
   openGraph: {
     title: "Demo en Vivo del Chatbot IA para Empresas — Kobra AI",
     description:
       "Prueba en vivo el chatbot inteligente de Kobra AI. Automatización con IA para tu empresa en Madrid.",
-    url: "https://kobra.ai/demo",
+    url: "https://www.kobra-automation.com/demo",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Demo Kobra AI" }],
   },
 };

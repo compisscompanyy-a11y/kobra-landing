@@ -10,29 +10,29 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://kobra.ai";
+const SITE_URL = "https://www.kobra-automation.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Kobra AI — Chatbot para Empresas y Automatización con IA en Madrid",
+    default: "Kobra AI — Automatización con IA para Empresas en Madrid",
     template: "%s | Kobra AI",
   },
   description:
-    "Kobra AI ofrece chatbot para empresas, automatización con IA, agente de voz inteligencia artificial y chatbot WhatsApp empresas. Empresa de automatización en Madrid, España.",
+    "Empresa de automatización con IA en Madrid. Chatbot para empresas, chatbot WhatsApp, agente de voz con inteligencia artificial y automatización de procesos en España. Setup en 1 semana.",
   keywords: [
-    "chatbot para empresas",
-    "automatización con IA",
-    "empresa automatización Madrid",
+    "automatizaciones madrid",
+    "automatización con IA Madrid",
+    "chatbot para empresas Madrid",
+    "automatización empresarial Madrid",
     "chatbot WhatsApp empresas",
     "agente de voz inteligencia artificial",
     "automatización de procesos España",
-    "inteligencia artificial negocios",
+    "empresa automatización Madrid",
     "chatbot inteligente España",
-    "automatización empresarial Madrid",
-    "agente virtual WhatsApp",
-    "IA para empresas",
-    "chatbot 24/7",
+    "inteligencia artificial negocios",
+    "IA para empresas Madrid",
+    "automatizar procesos empresa",
   ],
   authors: [{ name: "Kobra AI", url: SITE_URL }],
   creator: "Kobra AI",
@@ -52,9 +52,9 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Kobra AI — Chatbot para Empresas y Automatización con IA en Madrid",
+    title: "Kobra AI — Automatización con IA para Empresas en Madrid",
     description:
-      "Chatbot para empresas, agente de voz con IA y automatización de procesos. Empresa en Madrid que automatiza negocios con inteligencia artificial. Setup en 1 semana.",
+      "Empresa de automatización con IA en Madrid. Chatbot para empresas, agente de voz IA y automatización de procesos. Setup en 1 semana.",
     type: "website",
     locale: "es_ES",
     url: SITE_URL,
@@ -70,13 +70,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kobra AI — Chatbot para Empresas y Automatización con IA",
+    title: "Kobra AI — Automatización con IA para Empresas en Madrid",
     description:
-      "Chatbot WhatsApp, agente de voz IA y automatización de procesos para empresas en España. Empresa en Madrid.",
+      "Chatbot WhatsApp, agente de voz IA y automatización de procesos para empresas en Madrid, España.",
     images: ["/opengraph-image"],
   },
   verification: {
-    google: "google-site-verification-placeholder",
+    google: "hRGHHUKuNIyE04mPOyoltC0QgwSKfymsPvz7EphWinA",
   },
 };
 
@@ -87,13 +87,14 @@ const localBusinessSchema = {
   name: "Kobra AI",
   legalName: "Kobra AI",
   description:
-    "Empresa de automatización con inteligencia artificial en Madrid. Especialistas en chatbot para empresas, chatbot WhatsApp, agentes de voz y automatización de procesos en España.",
+    "Empresa de automatización con inteligencia artificial en Madrid. Especialistas en automatizaciones Madrid, chatbot para empresas, chatbot WhatsApp, agentes de voz y automatización de procesos en España.",
   url: SITE_URL,
   telephone: "+34640802262",
   email: "hola@kobra.ai",
   foundingDate: "2024",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Madrid",
     addressLocality: "Madrid",
     addressRegion: "Comunidad de Madrid",
     postalCode: "28001",
@@ -115,6 +116,7 @@ const localBusinessSchema = {
   sameAs: [
     "https://www.linkedin.com/company/kobra-ai",
     "https://wa.me/34640802262",
+    SITE_URL,
   ],
   priceRange: "€€",
   currenciesAccepted: "EUR",
@@ -122,19 +124,32 @@ const localBusinessSchema = {
   areaServed: [
     { "@type": "Country", name: "España" },
     { "@type": "City", name: "Madrid" },
+    { "@type": "AdministrativeArea", name: "Comunidad de Madrid" },
   ],
   knowsAbout: [
+    "Automatizaciones con IA en Madrid",
     "Chatbot para empresas",
     "Automatización con inteligencia artificial",
     "Agente de voz IA",
     "Chatbot WhatsApp",
-    "Automatización de procesos",
-    "Machine Learning",
+    "Automatización de procesos empresariales",
+    "Machine Learning aplicado a negocios",
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "Servicios de automatización con IA para empresas",
+    name: "Servicios de automatización con IA para empresas en Madrid",
     itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Automatizaciones con IA en Madrid",
+          description:
+            "Automatización completa de procesos empresariales con inteligencia artificial. Empresa especializada en Madrid, España.",
+          provider: { "@type": "Organization", name: "Kobra AI" },
+          areaServed: { "@type": "City", name: "Madrid" },
+        },
+      },
       {
         "@type": "Offer",
         itemOffered: {
@@ -165,16 +180,6 @@ const localBusinessSchema = {
           provider: { "@type": "Organization", name: "Kobra AI" },
         },
       },
-      {
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: "Automatización de procesos con IA",
-          description:
-            "Automatización completa de procesos empresariales con inteligencia artificial en España",
-          provider: { "@type": "Organization", name: "Kobra AI" },
-        },
-      },
     ],
   },
   aggregateRating: {
@@ -193,7 +198,7 @@ const websiteSchema = {
   url: SITE_URL,
   name: "Kobra AI",
   description:
-    "Chatbot para empresas, agente de voz IA y automatización de procesos en Madrid, España.",
+    "Automatización con IA para empresas en Madrid. Chatbot, agente de voz y automatización de procesos en España.",
   publisher: { "@id": `${SITE_URL}/#business` },
   potentialAction: {
     "@type": "SearchAction",
@@ -203,8 +208,10 @@ const websiteSchema = {
     },
     "query-input": "required name=search_term_string",
   },
-  inLanguage: ["es", "en"],
+  inLanguage: "es",
 };
+
+const GA_ID = "G-XXXXXXXXXX";
 
 export default function RootLayout({
   children,
@@ -230,6 +237,20 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
         <LanguageProvider>{children}</LanguageProvider>
+
+        {/* Google Analytics 4 */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+          `}
+        </Script>
 
         {/* Calendly popup widget script — loads after page is interactive */}
         <Script

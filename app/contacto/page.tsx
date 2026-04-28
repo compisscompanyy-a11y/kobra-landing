@@ -16,20 +16,30 @@ export const metadata: Metadata = {
     "empresa automatización Madrid contacto",
   ],
   alternates: {
-    canonical: "https://kobra.ai/contacto",
+    canonical: "https://www.kobra-automation.com/contacto",
   },
   openGraph: {
     title: "Contacta con Kobra AI — Demo Gratuita de Automatización con IA",
     description:
       "Pide tu demo gratuita de chatbot para empresas, agente de voz IA o automatización de procesos. Empresa en Madrid.",
-    url: "https://kobra.ai/contacto",
+    url: "https://www.kobra-automation.com/contacto",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Contacto Kobra AI" }],
   },
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.kobra-automation.com" },
+    { "@type": "ListItem", position: 2, name: "Contacto", item: "https://www.kobra-automation.com/contacto" },
+  ],
 };
 
 export default function ContactoPage() {
   return (
     <main className="relative min-h-screen bg-[#030303] overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
       <section className="pt-36 pb-32 px-6">

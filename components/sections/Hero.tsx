@@ -3,9 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import Link from "next/link";
-import { useLang } from "@/context/LanguageContext";
 
-/* ── Animated neural-network background ────────────────────────── */
 const nodes = [
   { cx: 12, cy: 22, r: 2.5, delay: 0 },
   { cx: 38, cy: 15, r: 2, delay: 0.4 },
@@ -26,6 +24,8 @@ const edges = [
   [5, 6], [6, 7], [2, 6], [4, 9], [5, 10],
   [10, 11], [8, 9], [9, 10], [3, 7],
 ];
+
+const trust = ["Setup en 1 semana", "Soporte en español", "Resultados desde el día 1"];
 
 function NeuralBackground() {
   return (
@@ -70,9 +70,6 @@ function NeuralBackground() {
 }
 
 export default function Hero() {
-  const { t } = useLang();
-  const h = t.hero;
-
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center dot-grid overflow-hidden pt-16">
       {/* Radial glow */}
@@ -96,24 +93,20 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00E676]/20 bg-[#00E676]/5 text-[#00E676] text-xs font-medium tracking-widest uppercase"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#00E676] animate-pulse-slow" />
-          {h.badge}
+          Agencia de Automatización con IA en Madrid
         </motion.div>
 
-        {/* Headline */}
+        {/* H1 — único, con keyword principal */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex flex-col gap-1"
         >
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-white">
-            {h.line1}
-          </h1>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none">
-            <span className="text-gradient-green">{h.line2}</span>
-          </h1>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none text-white">
-            {h.line3}
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-none flex flex-col gap-1">
+            <span className="text-white">Automatización</span>
+            <span className="text-gradient-green">con IA</span>
+            <span className="text-white">en Madrid</span>
           </h1>
         </motion.div>
 
@@ -124,7 +117,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.22 }}
           className="text-lg md:text-xl text-[#BBB] max-w-2xl leading-relaxed font-light"
         >
-          {h.sub}
+          Chatbots inteligentes, agentes de voz y automatización de procesos para empresas en España. Trabajan 24/7 para que tú te concentres en crecer.
         </motion.p>
 
         {/* CTAs */}
@@ -138,7 +131,7 @@ export default function Hero() {
             href="/contacto"
             className="group flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#00E676] text-[#030303] font-semibold text-sm hover:bg-[#69f0ae] transition-all duration-200 glow-green-sm hover:glow-green"
           >
-            {h.ctaPrimary}
+            Pedir Demo Gratis
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
           <a
@@ -146,7 +139,7 @@ export default function Hero() {
             className="group flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/10 text-[#BBB] text-sm font-medium hover:border-white/25 hover:text-white transition-all duration-200"
           >
             <Play size={14} className="text-[#00E676]" />
-            {h.ctaSecondary}
+            Ver Demo en Vivo
           </a>
         </motion.div>
 
@@ -157,7 +150,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 text-xs text-[#444]"
         >
-          {h.trust.map((item, i) => (
+          {trust.map((item, i) => (
             <span key={item} className="flex items-center gap-1.5">
               {i > 0 && <span className="text-[#222] mr-2.5 hidden sm:inline">·</span>}
               <span className="w-1.5 h-1.5 rounded-full bg-[#00E676]" />

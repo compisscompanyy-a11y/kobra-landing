@@ -12,17 +12,17 @@ import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
 
 export const metadata: Metadata = {
-  title: "Kobra AI — Chatbot para Empresas y Automatización con IA en Madrid",
+  title: "Automatización con IA para Empresas en Madrid | Kobra AI",
   description:
-    "Empresa de automatización con IA en Madrid. Chatbot para empresas, chatbot WhatsApp, agente de voz inteligencia artificial y automatización de procesos en España. Setup en 1 semana.",
+    "Empresa de automatizaciones en Madrid. Chatbot para empresas, chatbot WhatsApp, agente de voz inteligencia artificial y automatización de procesos en España. Setup en 1 semana.",
   alternates: {
-    canonical: "https://kobra.ai",
+    canonical: "https://www.kobra-automation.com",
   },
   openGraph: {
-    title: "Kobra AI — Chatbot para Empresas y Automatización con IA en Madrid",
+    title: "Kobra AI — Automatización con IA para Empresas en Madrid",
     description:
       "Empresa de automatización con IA en Madrid. Chatbot WhatsApp, agente de voz IA y automatización de procesos para negocios en España.",
-    url: "https://kobra.ai",
+    url: "https://www.kobra-automation.com",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Kobra AI — Automatización con IA en Madrid" }],
   },
 };
