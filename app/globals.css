@@ -27,9 +27,10 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide default cursor globally — custom cursor JS activates only on pointer:fine */
+/* Hide default cursor globally — Chrome/Mac fix: 1x1 transparent PNG fallback,
+   then `none`. Chrome ignores plain `cursor: none` on some elements. */
 *, *::before, *::after {
-  cursor: none !important;
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=") 0 0, none !important;
 }
 
 /* Dot grid background */

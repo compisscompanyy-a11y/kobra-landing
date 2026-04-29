@@ -21,7 +21,8 @@ export default function CustomCursor() {
     // en TODOS los elementos sin depender del media query en CSS
     const styleTag = document.createElement("style");
     styleTag.id = "kobra-cursor-hide";
-    styleTag.textContent = "*, *::before, *::after { cursor: none !important; }";
+    styleTag.textContent =
+      '*, *::before, *::after { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=") 0 0, none !important; }';
     document.head.appendChild(styleTag);
 
     let mouseX = -300;
