@@ -17,7 +17,12 @@ export default function CustomCursor() {
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) return;
 
-    document.documentElement.style.cursor = "none";
+    // Inyectar estilo directamente en el <head> para eliminar el cursor nativo
+    // en TODOS los elementos sin depender del media query en CSS
+    const styleTag = document.createElement("style");
+    styleTag.id = "kobra-cursor-hide";
+    styleTag.textContent = "*, *::before, *::after { cursor: none !important; }";
+    document.head.appendChild(styleTag);
 
     let mouseX = -300;
     let mouseY = -300;
@@ -93,7 +98,7 @@ export default function CustomCursor() {
 
     return () => {
       cancelAnimationFrame(rafId);
-      document.documentElement.style.cursor = "";
+      document.getElementById("kobra-cursor-hide")?.remove();
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
