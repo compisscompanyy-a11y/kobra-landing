@@ -88,8 +88,8 @@ export default function ContactForm() {
           <p className="text-white font-semibold text-lg mb-2">{f.success}</p>
           <p className="text-[#666] text-sm">
             {lang === "es"
-              ? "Revisa tu cliente de correo para confirmar el envío."
-              : "Check your email client to confirm the message was sent."}
+              ? "Te responderemos en menos de 24 horas."
+              : "We'll get back to you within 24 hours."}
           </p>
         </div>
       </motion.div>
