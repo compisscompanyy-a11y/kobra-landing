@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { LanguageProvider } from "@/context/LanguageContext";
+import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -235,7 +236,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
+      <body className={`${inter.variable} font-sans bg-[#030303] text-white cursor-none`}>
+        <CustomCursor />
         <LanguageProvider>{children}</LanguageProvider>
 
         {/* Google Analytics 4 */}

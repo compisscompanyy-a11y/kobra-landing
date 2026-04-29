@@ -27,6 +27,13 @@ body {
   overflow-x: hidden;
 }
 
+/* Hide default cursor on non-touch devices — custom cursor takes over */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
 /* Dot grid background */
 .dot-grid {
   background-image: radial-gradient(
