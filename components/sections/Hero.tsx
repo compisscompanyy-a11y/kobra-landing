@@ -134,13 +134,13 @@ export default function Hero() {
             Pedir Demo Gratis
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
-          <a
-            href="#demo"
+          <Link
+            href="/demo"
             className="group flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/10 text-[#BBB] text-sm font-medium hover:border-white/25 hover:text-white transition-all duration-200"
           >
             <Play size={14} className="text-[#00E676]" />
             Ver Demo en Vivo
-          </a>
+          </Link>
         </motion.div>
 
         {/* Trust strip */}
