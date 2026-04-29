@@ -180,6 +180,34 @@ export default function ContactForm() {
         />
       </div>
 
+      {/* Honeypot — hidden from real users, bots fill it */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        value={formData.website}
+        onChange={handleChange}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: "1px",
+          height: "1px",
+          opacity: 0,
+        }}
+      />
+
+      {/* Error message */}
+      {status === "error" && errorMsg && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-300"
+        >
+          {errorMsg}
+        </div>
+      )}
+
       {/* Submit */}
       <button
         type="submit"
