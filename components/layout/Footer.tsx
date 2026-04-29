@@ -73,7 +73,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="mailto:hola@kobra.ai"
+                href="mailto:kobra.automation.ia@gmail.com"
                 aria-label="Email Kobra AI"
                 className="w-8 h-8 rounded-lg border border-white/8 flex items-center justify-center text-[#555] hover:text-[#00E676] hover:border-[#00E676]/30 transition-all duration-200"
               >
@@ -149,11 +149,11 @@ export default function Footer() {
               Contacto
             </p>
             <a
-              href="mailto:hola@kobra.ai"
+              href="mailto:kobra.automation.ia@gmail.com"
               className="flex items-center gap-2 text-sm text-[#555] hover:text-[#00E676] transition-colors group"
             >
               <Mail size={13} />
-              hola@kobra.ai
+              kobra.automation.ia@gmail.com
               <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
             <a

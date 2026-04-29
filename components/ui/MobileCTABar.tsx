@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, MessageCircle } from "lucide-react";
 import CalendlyButton from "@/components/ui/CalendlyButton";
 
-const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34640802262";
+const WA_NUMBER = "34640802262";
 const WA_MSG = "Hola%2C%20me%20interesa%20una%20demo%20gratuita%20de%20Kobra%20AI";
 
 export default function MobileCTABar() {

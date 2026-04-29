@@ -27,7 +27,7 @@ export default function PrivacidadPage() {
               El responsable del tratamiento de los datos personales recogidos a través de este sitio web y del servicio de WhatsApp es <strong className="text-white">Kobra AI</strong>, con domicilio en Madrid, España.
             </p>
             <p className="mt-2">
-              Contacto: <a href="mailto:hola@kobra.ai" className="text-[#4ADE80] hover:underline">hola@kobra.ai</a>
+              Contacto: <a href="mailto:kobra.automation.ia@gmail.com" className="text-[#4ADE80] hover:underline">kobra.automation.ia@gmail.com</a>
             </p>
           </section>
 
@@ -102,7 +102,7 @@ export default function PrivacidadPage() {
               <li><strong className="text-white">Oposición:</strong> oponerte al tratamiento basado en interés legítimo.</li>
             </ul>
             <p className="mt-3">
-              Para ejercer estos derechos, escríbenos a <a href="mailto:hola@kobra.ai" className="text-[#4ADE80] hover:underline">hola@kobra.ai</a> indicando el derecho que deseas ejercer y adjuntando una copia de tu DNI o documento identificativo.
+              Para ejercer estos derechos, escríbenos a <a href="mailto:kobra.automation.ia@gmail.com" className="text-[#4ADE80] hover:underline">kobra.automation.ia@gmail.com</a> indicando el derecho que deseas ejercer y adjuntando una copia de tu DNI o documento identificativo.
             </p>
             <p className="mt-2">
               También puedes presentar una reclamación ante la <strong className="text-white">Agencia Española de Protección de Datos (AEPD)</strong> en <a href="https://www.aepd.es" className="text-[#4ADE80] hover:underline" target="_blank" rel="noopener noreferrer">aepd.es</a>.

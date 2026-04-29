@@ -90,7 +90,7 @@ const localBusinessSchema = {
     "Empresa de automatización con inteligencia artificial en Madrid. Especialistas en automatizaciones Madrid, chatbot para empresas, chatbot WhatsApp, agentes de voz y automatización de procesos en España.",
   url: SITE_URL,
   telephone: "+34640802262",
-  email: "hola@kobra.ai",
+  email: "kobra.automation.ia@gmail.com",
   foundingDate: "2024",
   address: {
     "@type": "PostalAddress",

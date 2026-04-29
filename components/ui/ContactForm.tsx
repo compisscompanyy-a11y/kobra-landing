@@ -49,7 +49,7 @@ export default function ContactForm() {
     const body = encodeURIComponent(
       `Nombre: ${formData.name}\nEmail: ${formData.email}\nTeléfono: ${formData.phone}\nServicio: ${formData.product}\n\n${formData.message}`
     );
-    const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hola@kobra.ai";
+    const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kobra.automation.ia@gmail.com";
 
     // Simulate sending (replace with real fetch to your endpoint)
     await new Promise((r) => setTimeout(r, 1000));

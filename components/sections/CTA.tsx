@@ -6,7 +6,7 @@ import { CheckCircle2, Calendar, MessageCircle } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import CalendlyButton from "@/components/ui/CalendlyButton";
 
-const WA_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34640802262";
+const WA_NUMBER = "34640802262";
 
 export default function CTA() {
   const { t, lang } = useLang();
