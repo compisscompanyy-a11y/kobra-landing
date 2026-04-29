@@ -5,24 +5,19 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Tech-style page transition:
- *  - Green scan line sweeps top→bottom across the viewport.
- *  - Faint green grid + scanline trail follows behind it.
- *  - Outgoing/incoming page content cross-fades with a subtle blur+lift.
+ * Tech-style sweep overlay that fires on every route change (and on the
+ * `kobra:sweep` custom event — used e.g. when clicking the logo while already
+ * on the home page). It does NOT wrap children, so it's safe to mount in the
+ * root layout alongside Next.js App Router.
  *
- * The same sweep can be triggered manually (e.g. clicking the logo while
- * already on the home page) by dispatching `window.dispatchEvent(new Event("kobra:sweep"))`.
+ * Visual: a sharp green scan line travels top→bottom with a soft trailing glow,
+ * a brief faint vertical-grid flicker, and a barely-there full-screen tint.
  */
-export default function PageTransition({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PageTransition() {
   const pathname = usePathname();
   const [sweepKey, setSweepKey] = useState(0);
   const firstRender = useRef(true);
 
-  // Trigger sweep on route change (skip first mount).
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
@@ -31,7 +26,6 @@ export default function PageTransition({
     setSweepKey((k) => k + 1);
   }, [pathname]);
 
-  // Allow manual trigger from anywhere (logo click on home, etc.).
   useEffect(() => {
     const trigger = () => setSweepKey((k) => k + 1);
     window.addEventListener("kobra:sweep", trigger);
@@ -39,39 +33,18 @@ export default function PageTransition({
   }, []);
 
   return (
-    <>
-      {/* Sweep overlay — re-mounts every trigger via key, then animates and unmounts itself */}
-      <AnimatePresence>
-        {sweepKey > 0 && (
-          <SweepOverlay key={sweepKey} onDone={() => { /* keep last; new key replaces it */ }} />
-        )}
-      </AnimatePresence>
-
-      {/* Page content cross-fade */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={pathname}
-          initial={{ opacity: 0, filter: "blur(6px)", y: 6 }}
-          animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          exit={{ opacity: 0, filter: "blur(4px)", y: -4 }}
-          transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
-    </>
+    <AnimatePresence>
+      {sweepKey > 0 && <SweepOverlay key={sweepKey} />}
+    </AnimatePresence>
   );
 }
 
-function SweepOverlay({ onDone }: { onDone: () => void }) {
+function SweepOverlay() {
   const [done, setDone] = useState(false);
   useEffect(() => {
-    const t = setTimeout(() => {
-      setDone(true);
-      onDone();
-    }, 750);
+    const t = setTimeout(() => setDone(true), 750);
     return () => clearTimeout(t);
-  }, [onDone]);
+  }, []);
 
   if (done) return null;
 
@@ -91,7 +64,7 @@ function SweepOverlay({ onDone }: { onDone: () => void }) {
         className="absolute inset-0 bg-[#00E676]"
       />
 
-      {/* Faint vertical grid lines that flicker once */}
+      {/* Faint vertical grid flicker */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.18, 0] }}
