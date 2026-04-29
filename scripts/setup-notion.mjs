@@ -90,23 +90,32 @@ try {
     parent: { type: "page_id", page_id: parentPageId },
     icon: { type: "emoji", emoji: "📩" },
     title: [{ type: "text", text: { content: "Solicitudes" } }],
-    properties: {
-      Nombre: { title: {} },
-      Email: { email: {} },
-      Teléfono: { phone_number: {} },
-      Servicio: { select: { options: services } },
-      Estado: { select: { options: states } },
-      "Fecha de envío": { date: {} },
-      Mensaje: { rich_text: {} },
+    initial_data_source: {
+      properties: {
+        Nombre: { title: {} },
+        Email: { email: {} },
+        Teléfono: { phone_number: {} },
+        Servicio: { select: { options: services } },
+        Estado: { select: { options: states } },
+        "Fecha de envío": { date: {} },
+        Mensaje: { rich_text: {} },
+      },
     },
   });
+
+  // The new API exposes data_sources[] on the response; the data source id is
+  // what we use to create pages. Some workflows still accept the database id.
+  const dataSourceId =
+    db.data_sources?.[0]?.id ?? db.initial_data_source?.id ?? null;
 
   console.log("");
   console.log("✓ Base de datos creada.");
   console.log("");
-  console.log("  NOTION_DATABASE_ID=" + db.id);
+  console.log("Añade estas líneas a .env.local (y a las env vars de Vercel):");
   console.log("");
-  console.log("Pega esa línea en .env.local y en las Environment Variables de Vercel.");
+  console.log("  NOTION_DATABASE_ID=" + db.id);
+  if (dataSourceId) console.log("  NOTION_DATA_SOURCE_ID=" + dataSourceId);
+  console.log("");
   console.log("URL: " + db.url);
 } catch (err) {
   console.error("✖ Error creando la base de datos:");
