@@ -42,20 +42,27 @@ export default function ContactForm() {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("sending");
+    e.preventDefault()
+    setStatus("sending")
 
-    // Build mailto link as fallback (replace with Formspree/Resend endpoint when ready)
-    const body = encodeURIComponent(
-      `Nombre: ${formData.name}\nEmail: ${formData.email}\nTeléfono: ${formData.phone}\nServicio: ${formData.product}\n\n${formData.message}`
-    );
-    const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kobra.automation.ia@gmail.com";
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, lang }),
+      })
 
-    // Simulate sending (replace with real fetch to your endpoint)
-    await new Promise((r) => setTimeout(r, 1000));
+      if (!res.ok) {
+        const data = await res.json()
+        console.error("Contact error:", data)
+        setStatus("error")
+        return
+      }
 
-    window.location.href = `mailto:${email}?subject=Consulta desde kobra.ai — ${formData.product}&body=${body}`;
-    setStatus("success");
+      setStatus("success")
+    } catch {
+      setStatus("error")
+    }
   }
 
   if (status === "success") {
@@ -78,6 +85,27 @@ export default function ContactForm() {
         </div>
       </motion.div>
     );
+  }
+
+  if (status === "error") {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 p-12 rounded-2xl border border-red-500/20 bg-[#0d0d0d] text-center min-h-[400px]">
+        <p className="text-white font-semibold text-lg">
+          {lang === "es" ? "Algo salió mal." : "Something went wrong."}
+        </p>
+        <p className="text-[#666] text-sm">
+          {lang === "es"
+            ? "Por favor escríbenos por WhatsApp para respuesta inmediata."
+            : "Please message us on WhatsApp for an immediate response."}
+        </p>
+        <button
+          onClick={() => setStatus("idle")}
+          className="mt-2 text-[#00E676] text-sm underline"
+        >
+          {lang === "es" ? "Intentar de nuevo" : "Try again"}
+        </button>
+      </div>
+    )
   }
 
   return (
