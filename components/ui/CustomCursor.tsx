@@ -1,47 +1,49 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    // Don't run on touch devices or if reduced motion is preferred
+    const dot = dotRef.current;
+    const ring = ringRef.current;
+    if (!dot || !ring) return;
+
+    // Desactivar en táctil o si el usuario prefiere movimiento reducido
     if (
       window.matchMedia("(pointer: coarse)").matches ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) return;
 
-    // Hide native cursor at the HTML level so it can't leak through
     document.documentElement.style.cursor = "none";
-    setActive(true);
 
-    let mouseX = -200;
-    let mouseY = -200;
-    let ringX = -200;
-    let ringY = -200;
-    let rafId: number;
+    let mouseX = -300;
+    let mouseY = -300;
+    let ringX = -300;
+    let ringY = -300;
     let hovering = false;
     let clicking = false;
-
-    const dot = dotRef.current!;
-    const ring = ringRef.current!;
+    let rafId: number;
 
     function lerp(a: number, b: number, t: number) {
       return a + (b - a) * t;
     }
 
     function tick() {
-      ringX = lerp(ringX, mouseX, 0.12);
-      ringY = lerp(ringY, mouseY, 0.12);
+      ringX = lerp(ringX, mouseX, 0.11);
+      ringY = lerp(ringY, mouseY, 0.11);
 
-      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) scale(${clicking ? 0.5 : 1})`;
-      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%) scale(${hovering ? 1.5 : clicking ? 0.75 : 1})`;
+      const dotScale = clicking ? 0.4 : hovering ? 0 : 1;
+      const ringScale = hovering ? 1.55 : clicking ? 0.7 : 1;
+
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%,-50%) scale(${dotScale})`;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%,-50%) scale(${ringScale})`;
 
       rafId = requestAnimationFrame(tick);
     }
+
     rafId = requestAnimationFrame(tick);
 
     function onMove(e: MouseEvent) {
@@ -63,25 +65,23 @@ export default function CustomCursor() {
 
     function onDown() {
       clicking = true;
-      ring.style.borderColor = "#00E676";
-      ring.style.boxShadow = "0 0 18px 4px rgba(0,230,118,0.45)";
     }
 
     function onUp() {
       clicking = false;
-      ring.style.borderColor = "";
-      ring.style.boxShadow = "";
     }
 
     function onOver(e: MouseEvent) {
       const t = e.target as HTMLElement;
-      hovering = !!t.closest("a, button, [role=button], input, textarea, select, label, [tabindex='0']");
-      if (hovering) {
-        dot.style.transform += " scale(0)";
-        ring.style.borderColor = "#00E676";
-      } else {
-        ring.style.borderColor = "";
-      }
+      hovering = !!t.closest(
+        "a, button, [role=button], input, textarea, select, label, [tabindex='0']"
+      );
+      ring.style.borderColor = hovering
+        ? "rgba(0,230,118,0.9)"
+        : "rgba(0,230,118,0.45)";
+      ring.style.boxShadow = hovering
+        ? "0 0 16px 4px rgba(0,230,118,0.3)"
+        : "0 0 8px 1px rgba(0,230,118,0.12)";
     }
 
     document.addEventListener("mousemove", onMove);
@@ -103,11 +103,10 @@ export default function CustomCursor() {
     };
   }, []);
 
-  if (!active && typeof window !== "undefined") return null;
-
+  // Siempre renderiza los divs (mismo HTML en server y client — sin hydration mismatch)
+  // Empiezan ocultos (opacity:0) y se activan desde useEffect
   return (
     <>
-      {/* Dot */}
       <div
         ref={dotRef}
         aria-hidden="true"
@@ -119,16 +118,14 @@ export default function CustomCursor() {
           height: 8,
           borderRadius: "50%",
           backgroundColor: "#00E676",
-          boxShadow: "0 0 10px 3px rgba(0,230,118,0.7)",
+          boxShadow: "0 0 10px 3px rgba(0,230,118,0.65)",
           pointerEvents: "none",
           zIndex: 99999,
           opacity: 0,
-          transition: "transform 0.08s ease, opacity 0.2s ease",
+          transition: "opacity 0.2s ease",
           willChange: "transform",
         }}
       />
-
-      {/* Ring */}
       <div
         ref={ringRef}
         aria-hidden="true"
@@ -140,11 +137,11 @@ export default function CustomCursor() {
           height: 36,
           borderRadius: "50%",
           border: "1.5px solid rgba(0,230,118,0.45)",
-          boxShadow: "0 0 8px 1px rgba(0,230,118,0.15)",
+          boxShadow: "0 0 8px 1px rgba(0,230,118,0.12)",
           pointerEvents: "none",
           zIndex: 99998,
           opacity: 0,
-          transition: "transform 0.0s linear, border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease",
+          transition: "opacity 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
           willChange: "transform",
         }}
       />
