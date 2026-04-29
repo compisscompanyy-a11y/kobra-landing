@@ -27,11 +27,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide default cursor on non-touch devices — custom cursor takes over */
-@media (pointer: fine) {
-  html, html *, html *::before, html *::after {
-    cursor: none !important;
-  }
+/* Hide default cursor globally — custom cursor JS activates only on pointer:fine */
+*, *::before, *::after {
+  cursor: none !important;
 }
 
 /* Dot grid background */
