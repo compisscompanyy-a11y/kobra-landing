@@ -23,6 +23,9 @@ export default function InteractiveDemo() {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const sessionId = useRef<string>(
+    typeof crypto !== 'undefined' ? crypto.randomUUID() : Math.random().toString(36).slice(2)
+  )
 
   // Scroll only the chat container — never the page
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -55,6 +58,7 @@ export default function InteractiveDemo() {
             content: m.content,
           })),
           lang,
+          session_id: sessionId.current,
         }),
       });
 

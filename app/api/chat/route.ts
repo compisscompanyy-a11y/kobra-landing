@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import { adminClient } from '@/lib/supabase/admin'
 
 // Dominios permitidos para llamar a esta API
 const ALLOWED_ORIGINS = [
@@ -151,7 +152,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { messages, lang = "es" } = await request.json();
+    const { messages, lang = "es", session_id } = await request.json();
 
     // Validar que messages existe y tiene formato correcto
     if (!Array.isArray(messages) || messages.length === 0) {
@@ -207,6 +208,26 @@ export async function POST(request: NextRequest) {
 
     const content = response.content[0];
     if (content.type !== "text") throw new Error("Unexpected response type");
+
+    // Persist conversation async — don't block the response
+    if (session_id) {
+      const userMsg = cleanMessages[cleanMessages.length - 1]
+      Promise.resolve(
+        adminClient
+          .from('conversations')
+          .upsert({ session_id, updated_at: new Date().toISOString() }, { onConflict: 'session_id' })
+          .select('id')
+          .single()
+      ).then(({ data: conv }) => {
+        if (!conv) return
+        return Promise.resolve(
+          adminClient.from('messages').insert([
+            { conversation_id: conv.id, role: 'user', content: userMsg?.content ?? '' },
+            { conversation_id: conv.id, role: 'assistant', content: content.text },
+          ])
+        )
+      }).catch(console.error)
+    }
 
     return NextResponse.json(
       { message: content.text },
