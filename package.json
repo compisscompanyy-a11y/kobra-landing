@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup-notion": "node scripts/setup-notion.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.0",
+    "@notionhq/client": "^5.20.0",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.105.1",
     "framer-motion": "^11.3.0",
@@ -17,7 +19,8 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "resend": "^6.12.2"
+    "resend": "^6.12.2",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -32,8 +32,10 @@ export default function ContactForm() {
     phone: "",
     product: "",
     message: "",
+    website: "", // honeypot — must stay empty
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -79,8 +81,8 @@ export default function ContactForm() {
           <p className="text-white font-semibold text-lg mb-2">{f.success}</p>
           <p className="text-[#666] text-sm">
             {lang === "es"
-              ? "Revisa tu cliente de correo para confirmar el envío."
-              : "Check your email client to confirm the message was sent."}
+              ? "Te responderemos en menos de 24 horas."
+              : "We'll get back to you within 24 hours."}
           </p>
         </div>
       </motion.div>
@@ -191,6 +193,34 @@ export default function ContactForm() {
           className="bg-[#111] border border-white/8 rounded-xl px-4 py-3 text-sm text-white placeholder-[#333] focus:outline-none focus:border-[#00E676]/30 transition-colors resize-none"
         />
       </div>
+
+      {/* Honeypot — hidden from real users, bots fill it */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        value={formData.website}
+        onChange={handleChange}
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          width: "1px",
+          height: "1px",
+          opacity: 0,
+        }}
+      />
+
+      {/* Error message */}
+      {status === "error" && errorMsg && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-300"
+        >
+          {errorMsg}
+        </div>
+      )}
 
       {/* Submit */}
       <button
