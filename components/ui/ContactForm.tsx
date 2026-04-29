@@ -32,8 +32,10 @@ export default function ContactForm() {
     phone: "",
     product: "",
     message: "",
+    website: "", // honeypot — must stay empty
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -44,18 +46,32 @@ export default function ContactForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
+    setErrorMsg("");
 
-    // Build mailto link as fallback (replace with Formspree/Resend endpoint when ready)
-    const body = encodeURIComponent(
-      `Nombre: ${formData.name}\nEmail: ${formData.email}\nTeléfono: ${formData.phone}\nServicio: ${formData.product}\n\n${formData.message}`
-    );
-    const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "kobra.automation.ia@gmail.com";
-
-    // Simulate sending (replace with real fetch to your endpoint)
-    await new Promise((r) => setTimeout(r, 1000));
-
-    window.location.href = `mailto:${email}?subject=Consulta desde kobra.ai — ${formData.product}&body=${body}`;
-    setStatus("success");
+    try {
+      const res = await fetch("/api/submit-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const json: { ok?: boolean; error?: string } = await res
+        .json()
+        .catch(() => ({}));
+      if (!res.ok || !json.ok) {
+        throw new Error(json.error || `Error ${res.status}`);
+      }
+      setStatus("success");
+    } catch (err) {
+      console.error("[ContactForm] submit error:", err);
+      setErrorMsg(
+        err instanceof Error
+          ? err.message
+          : lang === "es"
+          ? "No se pudo enviar. Inténtalo de nuevo o escríbenos por WhatsApp."
+          : "Could not send. Please try again or reach us on WhatsApp."
+      );
+      setStatus("error");
+    }
   }
 
   if (status === "success") {
