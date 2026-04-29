@@ -38,6 +38,8 @@ export default function Navbar() {
   function handleInicio(e: React.MouseEvent) {
     if (pathname === "/") {
       e.preventDefault();
+      // Fire the same tech sweep effect used on route changes
+      window.dispatchEvent(new Event("kobra:sweep"));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
