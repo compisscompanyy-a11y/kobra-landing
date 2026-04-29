@@ -21,8 +21,20 @@ export default function CustomCursor() {
     // en TODOS los elementos sin depender del media query en CSS
     const styleTag = document.createElement("style");
     styleTag.id = "kobra-cursor-hide";
-    styleTag.textContent =
-      '*, *::before, *::after { cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkAAIAAAoAAv/lxKUAAAAASUVORK5CYII=") 0 0, none !important; }';
+    const transparentCursor =
+      "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect width='32' height='32' fill='transparent'/></svg>\") 16 16, none";
+    styleTag.textContent = `
+      *, *::before, *::after,
+      *:hover, *:active, *:focus,
+      a, a:hover, a:active, a:focus,
+      button, button:hover, button:active, button:focus,
+      input, input:hover, input:active, input:focus,
+      textarea, textarea:hover, textarea:active, textarea:focus,
+      select, select:hover, select:active, select:focus,
+      label, [role="button"], [tabindex] {
+        cursor: ${transparentCursor} !important;
+      }
+    `;
     document.head.appendChild(styleTag);
 
     let mouseX = -300;
