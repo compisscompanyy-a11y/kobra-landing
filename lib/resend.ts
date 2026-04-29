@@ -1,6 +1,8 @@
 import { Resend } from 'resend'
 
-export const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY)
+}
 
 export async function sendLeadNotification(lead: {
   name: string
@@ -9,7 +11,7 @@ export async function sendLeadNotification(lead: {
   product: string
   message?: string | null
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: 'Kobra AI <onboarding@resend.dev>',
     to: 'kobra.automation.ia@gmail.com',
     subject: `Nuevo lead: ${lead.product} — ${lead.name}`,
@@ -29,7 +31,7 @@ export async function sendReplyToLead(
   subject: string,
   body: string
 ) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: 'Kobra AI <onboarding@resend.dev>',
     to,
     subject,
