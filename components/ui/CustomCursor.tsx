@@ -7,9 +7,9 @@ export default function CustomCursor() {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const dot = dotRef.current;
-    const ring = ringRef.current;
-    if (!dot || !ring) return;
+    if (!dotRef.current || !ringRef.current) return;
+    const dot = dotRef.current as HTMLDivElement;
+    const ring = ringRef.current as HTMLDivElement;
 
     // Desactivar en táctil o si el usuario prefiere movimiento reducido
     if (
