@@ -239,7 +239,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
         <CustomCursor />
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <PageTransition>{children}</PageTransition>
+        </LanguageProvider>
 
         {/* Google Analytics 4 */}
         <Script
