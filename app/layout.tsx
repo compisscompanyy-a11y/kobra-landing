@@ -236,7 +236,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${inter.variable} font-sans bg-[#030303] text-white cursor-none`}>
+      <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
         <CustomCursor />
         <LanguageProvider>{children}</LanguageProvider>
 

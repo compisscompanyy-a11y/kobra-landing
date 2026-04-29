@@ -1,59 +1,87 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-  const [prefersReduced, setPrefersReduced] = useState(false);
-
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-
-  const springConfig = { damping: 28, stiffness: 280, mass: 0.5 };
-  const dotX = useSpring(mouseX, { damping: 40, stiffness: 500, mass: 0.3 });
-  const dotY = useSpring(mouseY, { damping: 40, stiffness: 500, mass: 0.3 });
-  const ringX = useSpring(mouseX, springConfig);
-  const ringY = useSpring(mouseY, springConfig);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReduced(mq.matches);
+    // Don't run on touch devices or if reduced motion is preferred
+    if (
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) return;
 
-    // Only show on non-touch devices
-    const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    if (isTouch) return;
+    // Hide native cursor at the HTML level so it can't leak through
+    document.documentElement.style.cursor = "none";
+    setActive(true);
+
+    let mouseX = -200;
+    let mouseY = -200;
+    let ringX = -200;
+    let ringY = -200;
+    let rafId: number;
+    let hovering = false;
+    let clicking = false;
+
+    const dot = dotRef.current!;
+    const ring = ringRef.current!;
+
+    function lerp(a: number, b: number, t: number) {
+      return a + (b - a) * t;
+    }
+
+    function tick() {
+      ringX = lerp(ringX, mouseX, 0.12);
+      ringY = lerp(ringY, mouseY, 0.12);
+
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) scale(${clicking ? 0.5 : 1})`;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%) scale(${hovering ? 1.5 : clicking ? 0.75 : 1})`;
+
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
 
     function onMove(e: MouseEvent) {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.opacity = "1";
+      ring.style.opacity = "1";
     }
 
     function onLeave() {
-      setIsVisible(false);
+      dot.style.opacity = "0";
+      ring.style.opacity = "0";
     }
 
     function onEnter() {
-      setIsVisible(true);
+      dot.style.opacity = "1";
+      ring.style.opacity = "1";
     }
 
     function onDown() {
-      setIsClicking(true);
+      clicking = true;
+      ring.style.borderColor = "#00E676";
+      ring.style.boxShadow = "0 0 18px 4px rgba(0,230,118,0.45)";
     }
 
     function onUp() {
-      setIsClicking(false);
+      clicking = false;
+      ring.style.borderColor = "";
+      ring.style.boxShadow = "";
     }
 
-    function onMouseOver(e: MouseEvent) {
-      const target = e.target as HTMLElement;
-      const isInteractive =
-        target.closest("a, button, [role=button], input, textarea, select, label, [tabindex]") !== null;
-      setIsHovering(isInteractive);
+    function onOver(e: MouseEvent) {
+      const t = e.target as HTMLElement;
+      hovering = !!t.closest("a, button, [role=button], input, textarea, select, label, [tabindex='0']");
+      if (hovering) {
+        dot.style.transform += " scale(0)";
+        ring.style.borderColor = "#00E676";
+      } else {
+        ring.style.borderColor = "";
+      }
     }
 
     document.addEventListener("mousemove", onMove);
@@ -61,56 +89,64 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", onEnter);
     document.addEventListener("mousedown", onDown);
     document.addEventListener("mouseup", onUp);
-    document.addEventListener("mouseover", onMouseOver);
+    document.addEventListener("mouseover", onOver);
 
     return () => {
+      cancelAnimationFrame(rafId);
+      document.documentElement.style.cursor = "";
       document.removeEventListener("mousemove", onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
       document.removeEventListener("mousedown", onDown);
       document.removeEventListener("mouseup", onUp);
-      document.removeEventListener("mouseover", onMouseOver);
+      document.removeEventListener("mouseover", onOver);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, []);
 
-  if (prefersReduced) return null;
+  if (!active && typeof window !== "undefined") return null;
 
   return (
     <>
-      {/* Trailing ring */}
-      <motion.div
-        style={{
-          x: ringX,
-          y: ringY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          opacity: isVisible ? 1 : 0,
-          scale: isHovering ? 1.6 : isClicking ? 0.8 : 1,
-        }}
-        transition={{ duration: 0.2 }}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-9 w-9 rounded-full border border-[#00E676]/50 mix-blend-screen"
+      {/* Dot */}
+      <div
+        ref={dotRef}
         aria-hidden="true"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 8,
+          height: 8,
+          borderRadius: "50%",
+          backgroundColor: "#00E676",
+          boxShadow: "0 0 10px 3px rgba(0,230,118,0.7)",
+          pointerEvents: "none",
+          zIndex: 99999,
+          opacity: 0,
+          transition: "transform 0.08s ease, opacity 0.2s ease",
+          willChange: "transform",
+        }}
       />
 
-      {/* Core dot */}
-      <motion.div
-        ref={cursorRef}
-        style={{
-          x: dotX,
-          y: dotY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          opacity: isVisible ? 1 : 0,
-          scale: isClicking ? 0.5 : isHovering ? 0 : 1,
-          backgroundColor: isHovering ? "#00E676" : "#00E676",
-        }}
-        transition={{ duration: 0.15 }}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 rounded-full bg-[#00E676] shadow-[0_0_8px_2px_rgba(0,230,118,0.6)]"
+      {/* Ring */}
+      <div
+        ref={ringRef}
         aria-hidden="true"
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 36,
+          height: 36,
+          borderRadius: "50%",
+          border: "1.5px solid rgba(0,230,118,0.45)",
+          boxShadow: "0 0 8px 1px rgba(0,230,118,0.15)",
+          pointerEvents: "none",
+          zIndex: 99998,
+          opacity: 0,
+          transition: "transform 0.0s linear, border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease",
+          willChange: "transform",
+        }}
       />
     </>
   );

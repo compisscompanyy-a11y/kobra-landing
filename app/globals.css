@@ -29,7 +29,7 @@ body {
 
 /* Hide default cursor on non-touch devices — custom cursor takes over */
 @media (pointer: fine) {
-  *, *::before, *::after {
+  html, html *, html *::before, html *::after {
     cursor: none !important;
   }
 }
