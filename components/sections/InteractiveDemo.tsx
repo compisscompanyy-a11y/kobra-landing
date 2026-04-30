@@ -74,8 +74,7 @@ export default function InteractiveDemo() {
         ...prev,
         {
           role: "assistant",
-          content:
-            "Lo siento, hubo un error. Por favor escríbenos directamente por WhatsApp 😊",
+          content: d.errorMsg,
         },
       ]);
     } finally {
