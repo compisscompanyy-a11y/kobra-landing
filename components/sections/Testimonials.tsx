@@ -4,67 +4,10 @@ import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 
-const testimonials = [
-  {
-    quote:
-      "Teníamos una recepcionista a tiempo completo solo para coger citas. Con el agente de voz de Kobra, el 80% de las llamadas se gestionan solas. Ha sido el mejor ROI que hemos visto en años.",
-    name: "Dra. Laura Serrano",
-    role: "Directora Médica",
-    company: "Clínica DentalPro Madrid",
-    sector: "Clínica dental",
-    metric: "−80% llamadas manuales",
-    initial: "L",
-    color: "#00E676",
-  },
-  {
-    quote:
-      "Ahora mismo el chatbot de WhatsApp gestiona reservas, responde dudas sobre la carta y avisa cuando la terraza está llena. Lo que antes requería 2 personas, lo hace solo.",
-    name: "Miguel Ángel Torres",
-    role: "Propietario",
-    company: "Restaurante La Brasserie",
-    sector: "Restauración",
-    metric: "+35% reservas en 3 meses",
-    initial: "M",
-    color: "#00E676",
-  },
-  {
-    quote:
-      "Los leads que llegan ahora ya vienen filtrados: saben el precio, el barrio y el tipo de piso que buscan. Nuestros agentes solo hablan con gente que ya tiene intención de comprar.",
-    name: "Carlos Vega",
-    role: "Director Comercial",
-    company: "Inmobiliaria GrupHogar",
-    sector: "Inmobiliaria",
-    metric: "3x productividad del equipo",
-    initial: "C",
-    color: "#00E676",
-  },
-  {
-    quote:
-      "Antes perdíamos ventas porque el soporte tardaba horas. Ahora el chatbot responde en segundos, recomienda tallas y resuelve devoluciones. El abandono de carrito bajó un 22%.",
-    name: "Sofía Martínez",
-    role: "CEO",
-    company: "Moda Única Online",
-    sector: "Ecommerce",
-    metric: "−22% abandono de carrito",
-    initial: "S",
-    color: "#00E676",
-  },
-  {
-    quote:
-      "Implementamos el chatbot web en nuestra academia de idiomas y en el primer mes conseguimos 40 nuevos alumnos que hubieran quedado sin respuesta fuera del horario de oficina.",
-    name: "Javier Ruiz",
-    role: "Director",
-    company: "Academia LinguaPlus",
-    sector: "Educación",
-    metric: "+40 alumnos el primer mes",
-    initial: "J",
-    color: "#00E676",
-  },
-];
-
 export default function Testimonials() {
   const { t } = useLang();
   const tr = t.testimonials;
+  const testimonials = tr.items;
 
   return (
     <section id="testimonials" className="py-24 px-6">
