@@ -11,6 +11,7 @@ const WA_MSG = "Hola%2C%20me%20interesa%20una%20demo%20de%20Kobra%20AI";
 
 export default function Footer() {
   const { t } = useLang();
+  const fo = t.footer;
 
   return (
     <footer className="border-t border-white/5 bg-[#030303]">
