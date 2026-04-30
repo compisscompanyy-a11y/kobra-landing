@@ -46,10 +46,10 @@ export default function Navbar() {
 
   // 4 main pages — clean, no duplicates
   const pages = [
-    { label: "Inicio",        href: "/",          onClick: handleInicio },
-    { label: t.nav.services,  href: "/servicios",  onClick: undefined },
-    { label: "Demo",          href: "/demo",       onClick: undefined },
-    { label: t.nav.contact,   href: "/contacto",   onClick: undefined },
+    { label: t.nav.home,       href: "/",          onClick: handleInicio },
+    { label: t.nav.services,   href: "/servicios",  onClick: undefined },
+    { label: t.nav.demoShort,  href: "/demo",       onClick: undefined },
+    { label: t.nav.contact,    href: "/contacto",   onClick: undefined },
   ];
 
   return (
