@@ -4,6 +4,8 @@ import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 import MobileCTABar from "@/components/ui/MobileCTABar";
 import ContactForm from "@/components/ui/ContactForm";
+import PageHeader from "@/components/layout/PageHeader";
+import ContactSidebar from "@/components/sections/ContactSidebar";
 
 export const metadata: Metadata = {
   title: "Contacto — Pide tu Demo de Chatbot IA o Agente de Voz",
