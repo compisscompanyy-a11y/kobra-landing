@@ -1,5 +1,6 @@
 import { adminClient } from '@/lib/supabase/admin'
-import { notFound } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import AdminNav from '@/components/admin/AdminNav'
 import StatusSelector from '@/components/admin/StatusSelector'
@@ -12,6 +13,9 @@ export default async function LeadDetailPage({
 }: {
   params: { id: string }
 }) {
+  const supabase = createClient()
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) redirect('/admin')
   const { data: lead, error } = await adminClient
     .from('leads')
     .select('*')

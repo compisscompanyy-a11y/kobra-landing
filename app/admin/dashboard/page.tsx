@@ -1,6 +1,8 @@
 import { adminClient } from '@/lib/supabase/admin'
+import { createClient } from '@/lib/supabase/server'
 import type { Lead } from '@/types/supabase'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import LeadRow from '@/components/admin/LeadRow'
 import AdminNav from '@/components/admin/AdminNav'
 
@@ -18,6 +20,10 @@ export default async function DashboardPage({
 }: {
   searchParams: { status?: string }
 }) {
+  const supabase = createClient()
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) redirect('/admin')
+
   const statusFilter = searchParams.status ?? ''
 
   let query = adminClient

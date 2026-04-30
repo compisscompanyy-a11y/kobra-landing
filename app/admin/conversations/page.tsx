@@ -1,9 +1,14 @@
 import { adminClient } from '@/lib/supabase/admin'
+import { createClient } from '@/lib/supabase/server'
 import AdminNav from '@/components/admin/AdminNav'
+import { redirect } from 'next/navigation'
 
 export const dynamic = 'force-dynamic'
 
 export default async function ConversationsPage() {
+  const supabase = createClient()
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) redirect('/admin')
   const { data: conversations, error } = await adminClient
     .from('conversations')
     .select(`
