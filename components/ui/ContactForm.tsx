@@ -212,16 +212,6 @@ export default function ContactForm() {
         }}
       />
 
-      {/* Error message */}
-      {status === "error" && errorMsg && (
-        <div
-          role="alert"
-          className="rounded-xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-300"
-        >
-          {errorMsg}
-        </div>
-      )}
-
       {/* Submit */}
       <button
         type="submit"
