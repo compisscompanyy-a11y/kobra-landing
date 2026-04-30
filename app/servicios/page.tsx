@@ -49,23 +49,7 @@ export default function ServiciosPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Navbar />
 
-      {/* Page header */}
-      <section className="pt-36 pb-16 px-6 dot-grid">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block text-xs font-medium uppercase tracking-widest text-[#00E676] mb-4">
-            Servicios
-          </span>
-          <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
-            Cuatro herramientas.
-            <br />
-            <span className="text-gradient-green">Un solo objetivo.</span>
-          </h1>
-          <p className="text-[#888] text-lg leading-relaxed max-w-xl mx-auto">
-            Más clientes, menos trabajo manual. Elige lo que necesitas o
-            combínalos para una automatización completa.
-          </p>
-        </div>
-      </section>
+      <PageHeader page="servicios" />
 
       <Products />
       <Sectors />
