@@ -174,7 +174,7 @@ export default function Footer() {
               className="flex items-center gap-2 text-sm text-[#555] hover:text-[#00E676] transition-colors group"
             >
               <ArrowUpRight size={13} />
-              Agendar demo gratis
+              {fo.scheduleDemo}
             </a>
           </motion.div>
         </div>
