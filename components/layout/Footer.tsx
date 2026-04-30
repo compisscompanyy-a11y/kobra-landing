@@ -120,13 +120,13 @@ export default function Footer() {
             className="md:col-span-2 flex flex-col gap-3"
           >
             <p className="text-xs text-[#444] font-semibold uppercase tracking-widest mb-2">
-              Servicios
+              {fo.servicesHeading}
             </p>
             {[
-              { label: "Chatbot para empresas", href: "/servicios" },
-              { label: "Chatbot WhatsApp", href: "/servicios" },
-              { label: "Agente de voz IA", href: "/servicios" },
-              { label: "Automatización procesos", href: "/servicios" },
+              { label: fo.serviceLinks.chatbot, href: "/servicios" },
+              { label: fo.serviceLinks.whatsapp, href: "/servicios" },
+              { label: fo.serviceLinks.voice, href: "/servicios" },
+              { label: fo.serviceLinks.automation, href: "/servicios" },
             ].map((link) => (
               <Link
                 key={link.label}
