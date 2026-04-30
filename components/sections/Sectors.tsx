@@ -60,7 +60,7 @@ export default function Sectors() {
                 href="/contacto"
                 className="mt-auto text-xs text-[#555] group-hover:text-[#00E676] transition-colors font-medium"
               >
-                Ver cómo funciona →
+                {s.viewMore}
               </a>
             </motion.div>
           ))}
