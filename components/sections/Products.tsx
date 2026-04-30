@@ -108,9 +108,9 @@ export default function Products() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center text-xs text-[#333] mt-10"
         >
-          Precios orientativos · Presupuesto personalizado sin compromiso ·{" "}
+          {p.priceNote}
           <Link href="/contacto" className="text-[#555] hover:text-[#00E676] transition-colors">
-            Consulta tu caso →
+            {p.consultCase}
           </Link>
         </motion.p>
       </div>
