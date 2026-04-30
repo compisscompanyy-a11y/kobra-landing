@@ -11,16 +11,18 @@ interface Message {
   content: string;
 }
 
-const INITIAL_BOT_MESSAGE =
-  "¡Hola! Soy Kai, el asistente virtual de Kobra AI 👋 Soy un ejemplo del chatbot que podemos integrar en tu negocio — igual de rápido, igual de inteligente, pero personalizado para tu sector. ¿En qué puedo ayudarte hoy?";
-
 export default function InteractiveDemo() {
   const { t, lang } = useLang();
   const d = t.demo;
 
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: INITIAL_BOT_MESSAGE },
+    { role: "assistant", content: d.initialMessage },
   ]);
+
+  // Reset opening message when language changes
+  useEffect(() => {
+    setMessages([{ role: "assistant", content: d.initialMessage }]);
+  }, [d.initialMessage]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const sessionId = useRef<string>(
