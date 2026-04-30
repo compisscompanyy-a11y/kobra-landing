@@ -147,7 +147,7 @@ export default function Footer() {
             className="md:col-span-2 flex flex-col gap-3"
           >
             <p className="text-xs text-[#444] font-semibold uppercase tracking-widest mb-2">
-              Contacto
+              {fo.contactHeading}
             </p>
             <a
               href="mailto:kobra.automation.ia@gmail.com"
