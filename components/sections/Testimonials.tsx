@@ -31,7 +31,7 @@ export default function Testimonials() {
               <span key={i} className="text-[#00E676] text-xl">{s}</span>
             ))}
             <span className="text-white font-semibold text-sm ml-2">5.0</span>
-            <span className="text-[#444] text-sm">/ 5 · Basado en clientes reales</span>
+            <span className="text-[#444] text-sm">{tr.ratingNote}</span>
           </div>
         </motion.div>
 
