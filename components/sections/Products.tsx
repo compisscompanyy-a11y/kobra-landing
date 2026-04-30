@@ -89,7 +89,7 @@ export default function Products() {
                   href="/contacto"
                   className="mt-auto flex items-center gap-1.5 text-sm text-[#555] group-hover:text-[#00E676] transition-colors font-medium"
                 >
-                  Pedir presupuesto
+                  {p.requestQuote}
                   <ArrowRight
                     size={14}
                     className="group-hover:translate-x-1 transition-transform"
