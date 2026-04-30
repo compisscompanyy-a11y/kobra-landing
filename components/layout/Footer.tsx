@@ -39,14 +39,14 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-[#444] text-sm max-w-xs leading-relaxed">
-              Chatbot para empresas, agente de voz IA y automatización de procesos. Empresa de automatización con inteligencia artificial en Madrid, España.
+              {fo.description}
             </p>
 
             {/* Address */}
             <div className="flex items-start gap-2 mt-1">
               <MapPin size={13} className="text-[#333] mt-0.5 flex-shrink-0" />
               <span className="text-[#444] text-xs leading-relaxed">
-                Madrid, Comunidad de Madrid, España
+                {fo.address}
               </span>
             </div>
 
