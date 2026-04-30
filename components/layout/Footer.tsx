@@ -182,10 +182,10 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-14 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-[#444] text-xs">
-            © {new Date().getFullYear()} Kobra AI · Madrid, España · Todos los derechos reservados.
+            © {new Date().getFullYear()} Kobra AI · {fo.address} · {fo.copyright}
           </p>
           <p className="text-[#333] text-xs">
-            Diseñado para convertir. Construido para escalar.
+            {fo.tagline}
           </p>
         </div>
       </div>
