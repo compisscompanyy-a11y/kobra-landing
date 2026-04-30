@@ -8,6 +8,7 @@ import Sectors from "@/components/sections/Sectors";
 import HowItWorks from "@/components/sections/HowItWorks";
 import FAQ from "@/components/sections/FAQ";
 import CTA from "@/components/sections/CTA";
+import PageHeader from "@/components/layout/PageHeader";
 
 export const metadata: Metadata = {
   title: "Servicios de Automatización con IA — Chatbot WhatsApp y Agente de Voz",
