@@ -92,14 +92,14 @@ export default function Footer() {
             className="md:col-span-3 flex flex-col gap-3"
           >
             <p className="text-xs text-[#444] font-semibold uppercase tracking-widest mb-2">
-              Empresa
+              {fo.companyHeading}
             </p>
             {[
-              { label: "Inicio", href: "/" },
-              { label: t.nav.services, href: "/servicios" },
-              { label: "Demo en vivo", href: "/demo" },
-              { label: t.nav.contact, href: "/contacto" },
-              { label: "Preguntas frecuentes", href: "/#faq" },
+              { label: fo.links.home, href: "/" },
+              { label: fo.links.services, href: "/servicios" },
+              { label: fo.links.demo, href: "/demo" },
+              { label: fo.links.contact, href: "/contacto" },
+              { label: fo.links.faq, href: "/#faq" },
             ].map((link) => (
               <Link
                 key={link.label}
