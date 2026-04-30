@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 import MobileCTABar from "@/components/ui/MobileCTABar";
 import CTA from "@/components/sections/CTA";
+import PageHeader from "@/components/layout/PageHeader";
 
 const InteractiveDemo = dynamic(() => import("@/components/sections/InteractiveDemo"), {
   loading: () => (
