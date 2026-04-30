@@ -133,7 +133,7 @@ export default function InteractiveDemo() {
               </div>
               <div className="ml-auto flex items-center gap-1.5 text-xs text-[#00E676] bg-[#00E676]/8 px-2.5 py-1 rounded-full border border-[#00E676]/15">
                 <Sparkles size={11} />
-                IA activa
+                {d.aiActive}
               </div>
             </div>
 
