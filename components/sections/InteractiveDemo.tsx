@@ -129,7 +129,7 @@ export default function InteractiveDemo() {
               </div>
               <div>
                 <p className="text-sm font-semibold text-white">Kai · Kobra AI</p>
-                <p className="text-xs text-[#555]">Asistente de demostración</p>
+                <p className="text-xs text-[#555]">{d.assistantSubtitle}</p>
               </div>
               <div className="ml-auto flex items-center gap-1.5 text-xs text-[#00E676] bg-[#00E676]/8 px-2.5 py-1 rounded-full border border-[#00E676]/15">
                 <Sparkles size={11} />
