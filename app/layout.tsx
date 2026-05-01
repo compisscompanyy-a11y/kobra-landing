@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import { LanguageProvider } from "@/context/LanguageContext";
-import CustomCursor from "@/components/ui/CustomCursor";
 import PageTransition from "@/components/layout/PageTransition";
 import "./globals.css";
 
@@ -238,7 +237,6 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans bg-[#030303] text-white`}>
-        <CustomCursor />
         <PageTransition />
         <LanguageProvider>{children}</LanguageProvider>
 
