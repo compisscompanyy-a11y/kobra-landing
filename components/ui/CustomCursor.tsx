@@ -94,12 +94,6 @@ export default function CustomCursor() {
       hovering = !!t.closest(
         "a, button, [role=button], input, textarea, select, label, [tabindex='0']"
       );
-      ring.style.borderColor = hovering
-        ? "rgba(0,230,118,0.9)"
-        : "rgba(0,230,118,0.45)";
-      ring.style.boxShadow = hovering
-        ? "0 0 16px 4px rgba(0,230,118,0.3)"
-        : "0 0 8px 1px rgba(0,230,118,0.12)";
     }
 
     document.addEventListener("mousemove", onMove);
@@ -132,11 +126,10 @@ export default function CustomCursor() {
           position: "fixed",
           top: 0,
           left: 0,
-          width: 8,
-          height: 8,
+          width: 5,
+          height: 5,
           borderRadius: "50%",
           backgroundColor: "#00E676",
-          boxShadow: "0 0 10px 3px rgba(0,230,118,0.65)",
           pointerEvents: "none",
           zIndex: 99999,
           opacity: 0,
@@ -151,15 +144,14 @@ export default function CustomCursor() {
           position: "fixed",
           top: 0,
           left: 0,
-          width: 36,
-          height: 36,
+          width: 28,
+          height: 28,
           borderRadius: "50%",
-          border: "1.5px solid rgba(0,230,118,0.45)",
-          boxShadow: "0 0 8px 1px rgba(0,230,118,0.12)",
+          border: "1px solid rgba(0,230,118,0.3)",
           pointerEvents: "none",
           zIndex: 99998,
           opacity: 0,
-          transition: "opacity 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
+          transition: "opacity 0.2s ease",
           willChange: "transform",
         }}
       />
