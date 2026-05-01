@@ -27,27 +27,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Hide default cursor globally — Chrome/Mac fix:
-   Chrome on macOS leaks the arrow on :active / :hover / focus on links and
-   buttons. We apply a 32×32 transparent SVG cursor to every element AND
-   every interactive state explicitly to defeat Chrome's pseudo-state cursor
-   override. The `none` fallback covers Safari/Firefox. */
-*,
-*::before,
-*::after,
-*:hover,
-*:active,
-*:focus,
-*:visited,
-a, a:hover, a:active, a:focus, a:visited,
-button, button:hover, button:active, button:focus,
-input, input:hover, input:active, input:focus,
-textarea, textarea:hover, textarea:active, textarea:focus,
-select, select:hover, select:active, select:focus,
-label, label:hover, label:active, label:focus,
-[role="button"], [tabindex] {
-  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><rect width='32' height='32' fill='transparent'/></svg>") 16 16, none !important;
-}
 
 /* Dot grid background */
 .dot-grid {
